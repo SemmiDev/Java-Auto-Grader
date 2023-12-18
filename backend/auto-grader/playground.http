@@ -1,0 +1,69 @@
+### login
+POST http://localhost:8001/api/login
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "Sammi Aldhi Yanto",
+  "email":"sammidev4@gmail.com",
+  "picture": "sammi.png"
+}
+
+### get all classes
+GET http://localhost:8001/api/classes
+Accept: application/json
+Authorization: Bearer v2.local.iNcdrrmanD9QTsUQe75x2Fw3OutQHNA_YV5U9Sz8q5-wiRo-9iKD1FZfZIqZMHTuvY7kujHQSbcBf8GizYxwwdkVuona7M96iwZ41dGmJQ_E131HCNs2RVoB5chjpFdphJKVJJE26tBFaw1Bg00Xk5sd79p77p4s6aoDqfWMuxVYSa3yIJvdkdT1i8G5aW9WhBMjxf60RijHFlmZTALYpWoJgKIs6-idzUCGxJ_9shiOeSNLOEkbYT7ZwX41PsJfoRUdvpeOM3EfZB8KJBwDrAKAHHJxw4Qfc-GqWkZgLZhyEOoOvWw7GfyPlCjrifZW9CXkJXMvrVcPiiVmXQfClYKMLHX7cTEdRz4.bnVsbA
+
+### create a class
+
+POST http://localhost:8001/api/classes
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer v2.local.iNcdrrmanD9QTsUQe75x2Fw3OutQHNA_YV5U9Sz8q5-wiRo-9iKD1FZfZIqZMHTuvY7kujHQSbcBf8GizYxwwdkVuona7M96iwZ41dGmJQ_E131HCNs2RVoB5chjpFdphJKVJJE26tBFaw1Bg00Xk5sd79p77p4s6aoDqfWMuxVYSa3yIJvdkdT1i8G5aW9WhBMjxf60RijHFlmZTALYpWoJgKIs6-idzUCGxJ_9shiOeSNLOEkbYT7ZwX41PsJfoRUdvpeOM3EfZB8KJBwDrAKAHHJxw4Qfc-GqWkZgLZhyEOoOvWw7GfyPlCjrifZW9CXkJXMvrVcPiiVmXQfClYKMLHX7cTEdRz4.bnVsbA
+
+{
+  "name": "Kelas KP 2024 A",
+  "description": "Kelas KP 2024 A"
+}
+
+### get class details
+
+GET http://localhost:8001/api/classes/656340a9edfe830f92af9d65
+Authorization: Bearer v2.local.iNcdrrmanD9QTsUQe75x2Fw3OutQHNA_YV5U9Sz8q5-wiRo-9iKD1FZfZIqZMHTuvY7kujHQSbcBf8GizYxwwdkVuona7M96iwZ41dGmJQ_E131HCNs2RVoB5chjpFdphJKVJJE26tBFaw1Bg00Xk5sd79p77p4s6aoDqfWMuxVYSa3yIJvdkdT1i8G5aW9WhBMjxf60RijHFlmZTALYpWoJgKIs6-idzUCGxJ_9shiOeSNLOEkbYT7ZwX41PsJfoRUdvpeOM3EfZB8KJBwDrAKAHHJxw4Qfc-GqWkZgLZhyEOoOvWw7GfyPlCjrifZW9CXkJXMvrVcPiiVmXQfClYKMLHX7cTEdRz4.bnVsbA
+Accept: application/json
+
+### join
+POST http://localhost:8001/api/classes/join
+Authorization: Bearer v2.local.iNcdrrmanD9QTsUQe75x2Fw3OutQHNA_YV5U9Sz8q5-wiRo-9iKD1FZfZIqZMHTuvY7kujHQSbcBf8GizYxwwdkVuona7M96iwZ41dGmJQ_E131HCNs2RVoB5chjpFdphJKVJJE26tBFaw1Bg00Xk5sd79p77p4s6aoDqfWMuxVYSa3yIJvdkdT1i8G5aW9WhBMjxf60RijHFlmZTALYpWoJgKIs6-idzUCGxJ_9shiOeSNLOEkbYT7ZwX41PsJfoRUdvpeOM3EfZB8KJBwDrAKAHHJxw4Qfc-GqWkZgLZhyEOoOvWw7GfyPlCjrifZW9CXkJXMvrVcPiiVmXQfClYKMLHX7cTEdRz4.bnVsbA
+Accept: application/json
+Content-Type: application/json
+
+{
+  "email": "sammidev5@gmail.com",
+  "code": "2WnDkzf",
+  "role" : "Student"
+}
+
+### update class
+PUT http://localhost:8001/api/classes/656340a9edfe830f92af9d65
+Authorization: Bearer v2.local.iNcdrrmanD9QTsUQe75x2Fw3OutQHNA_YV5U9Sz8q5-wiRo-9iKD1FZfZIqZMHTuvY7kujHQSbcBf8GizYxwwdkVuona7M96iwZ41dGmJQ_E131HCNs2RVoB5chjpFdphJKVJJE26tBFaw1Bg00Xk5sd79p77p4s6aoDqfWMuxVYSa3yIJvdkdT1i8G5aW9WhBMjxf60RijHFlmZTALYpWoJgKIs6-idzUCGxJ_9shiOeSNLOEkbYT7ZwX41PsJfoRUdvpeOM3EfZB8KJBwDrAKAHHJxw4Qfc-GqWkZgLZhyEOoOvWw7GfyPlCjrifZW9CXkJXMvrVcPiiVmXQfClYKMLHX7cTEdRz4.bnVsbA
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "updated class name 123",
+  "description": "updated class desc 123"
+}
+
+### delete class
+DELETE http://localhost:8001/api/classes/6563434fd89d100a8d15db32
+Authorization: Bearer v2.local.iNcdrrmanD9QTsUQe75x2Fw3OutQHNA_YV5U9Sz8q5-wiRo-9iKD1FZfZIqZMHTuvY7kujHQSbcBf8GizYxwwdkVuona7M96iwZ41dGmJQ_E131HCNs2RVoB5chjpFdphJKVJJE26tBFaw1Bg00Xk5sd79p77p4s6aoDqfWMuxVYSa3yIJvdkdT1i8G5aW9WhBMjxf60RijHFlmZTALYpWoJgKIs6-idzUCGxJ_9shiOeSNLOEkbYT7ZwX41PsJfoRUdvpeOM3EfZB8KJBwDrAKAHHJxw4Qfc-GqWkZgLZhyEOoOvWw7GfyPlCjrifZW9CXkJXMvrVcPiiVmXQfClYKMLHX7cTEdRz4.bnVsbA
+Accept: application/json
+Content-Type: application/json
+
+### delete class member
+
+DELETE http://localhost:8001/api/classes/656340a9edfe830f92af9d65/members/65634367d89d100a8d15db38
+Authorization: Bearer v2.local.iNcdrrmanD9QTsUQe75x2Fw3OutQHNA_YV5U9Sz8q5-wiRo-9iKD1FZfZIqZMHTuvY7kujHQSbcBf8GizYxwwdkVuona7M96iwZ41dGmJQ_E131HCNs2RVoB5chjpFdphJKVJJE26tBFaw1Bg00Xk5sd79p77p4s6aoDqfWMuxVYSa3yIJvdkdT1i8G5aW9WhBMjxf60RijHFlmZTALYpWoJgKIs6-idzUCGxJ_9shiOeSNLOEkbYT7ZwX41PsJfoRUdvpeOM3EfZB8KJBwDrAKAHHJxw4Qfc-GqWkZgLZhyEOoOvWw7GfyPlCjrifZW9CXkJXMvrVcPiiVmXQfClYKMLHX7cTEdRz4.bnVsbA
+Accept: application/json
+Content-Type: application/json
