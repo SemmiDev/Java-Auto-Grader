@@ -1,0 +1,37 @@
+---
+- name: Install Golang 1.21.3
+  hosts: server_belajar_ansible
+  become: true
+
+  vars:
+    go_version: 1.21.3
+    go_installation_path: /usr/local
+
+  tasks:
+    - name: Download Golang archive
+      ansible.builtin.get_url:
+        url: 'https://golang.org/dl/go{{ go_version }}.linux-amd64.tar.gz'
+        dest: '/tmp/go{{ go_version }}.tar.gz'
+        mode: '0644'
+
+    - name: Extract Golang archive
+      ansible.builtin.unarchive:
+        src: '/tmp/go{{ go_version }}.tar.gz'
+        dest: '{{ go_installation_path }}'
+        remote_src: true
+        owner: root
+        group: root
+        mode: '0755'
+
+    - name: Set Golang environment variables
+      ansible.builtin.lineinfile:
+        path: /etc/profile.d/golang.sh
+        line: |
+          export GOROOT={{ go_installation_path }}/go
+          export GOPATH=$HOME/go
+          export PATH=$PATH:{{ go_installation_path }}/go/bin:$HOME/go/bin
+        create: true
+        owner: root
+        group: root
+        mode: '0755'
+        backup: true

@@ -1,0 +1,44 @@
+---
+- name: Install Apache Maven
+  hosts: server_belajar_ansible
+  become: true
+  become_method: ansible.builtin.sudo
+
+  vars:
+    maven_version: '3.9.5'
+    maven_installation_path: '/opt/maven'
+
+  tasks:
+    - name: Create Maven installation directory
+      ansible.builtin.file:
+        path: '{{ maven_installation_path }}'
+        state: directory
+        owner: '{{ ansible_user }}'
+        group: '{{ ansible_user }}'
+        mode: '0755'
+
+    - name: Download Apache Maven
+      ansible.builtin.get_url:
+        url: "https://downloads.apache.org/maven/maven-{{ maven_version.split('.')[0] }}/{{ maven_version }}/binaries/apache-maven-{{ maven_version }}-bin.tar.gz"
+        dest: '{{ maven_installation_path }}/apache-maven-{{ maven_version }}-bin.tar.gz'
+        mode: '0644'
+
+    - name: Extract Apache Maven
+      ansible.builtin.unarchive:
+        src: '{{ maven_installation_path }}/apache-maven-{{ maven_version }}-bin.tar.gz'
+        dest: '{{ maven_installation_path }}'
+        remote_src: true
+        owner: '{{ ansible_user }}'
+        group: '{{ ansible_user }}'
+        mode: '0755'
+
+    - name: Append Maven bin directory to PATH in .bashrc
+      ansible.builtin.lineinfile:
+        path: '/home/{{ ansible_user }}/.bashrc'
+        line: 'export PATH=/opt/maven/apache-maven-{{ maven_version }}/bin:$PATH'
+        create: true
+        owner: '{{ ansible_user }}'
+        group: '{{ ansible_user }}'
+        mode: '0644'
+      become: true
+      become_user: '{{ ansible_user }}'

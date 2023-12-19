@@ -1,0 +1,61 @@
+- name: Install PHP 8.2
+  hosts: server_belajar_ansible
+  become: true
+  tasks:
+    - name: Install prerequisites
+      ansible.builtin.package:
+        name: '{{ item }}'
+        state: present
+      loop:
+        - software-properties-common
+        - ca-certificates
+        - lsb-release
+        - apt-transport-https
+
+    - name: Add GPG key for PHP repository
+      ansible.builtin.apt_key:
+        url: https://packages.sury.org/php/apt.gpg
+        state: present
+
+    - name: Add PHP repository
+      ansible.builtin.apt_repository:
+        repo: 'deb https://packages.sury.org/php/ {{ ansible_distribution_release|lower }} main'
+        state: present
+        update_cache: true
+
+    - name: Add GPG key for PHP repository
+      ansible.builtin.apt_key:
+        url: https://packages.sury.org/php/apt.gpg
+        state: present
+
+    - name: Update package cache
+      ansible.builtin.apt:
+        update_cache: true
+
+    - name: Install PHP 8.2
+      ansible.builtin.package:
+        name: php8.2
+        state: present
+
+    - name: Install PHP 8.2 modules
+      ansible.builtin.package:
+        name: '{{ item }}'
+        state: present
+      loop:
+        - php8.2-fpm
+        - php8.2-common
+        - php8.2-dom
+        - php8.2-intl
+        - php8.2-mysql
+        - php8.2-xml
+        - php8.2-xmlrpc
+        - php8.2-curl
+        - php8.2-gd
+        - php8.2-imagick
+        - php8.2-cli
+        - php8.2-dev
+        - php8.2-imap
+        - php8.2-mbstring
+        - php8.2-soap
+        - php8.2-zip
+        - php8.2-bcmath

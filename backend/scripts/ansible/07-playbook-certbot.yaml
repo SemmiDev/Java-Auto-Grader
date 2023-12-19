@@ -1,0 +1,21 @@
+---
+- name: Install Certbot from Snap
+  hosts: server_belajar_ansible
+  become: true
+
+  tasks:
+    - name: Install Snapd
+      snap:
+        name: snapd
+        state: present
+
+    - name: Install Certbot
+      snap:
+        name: certbot
+        classic: true
+
+    - name: Create symlink for Certbot
+      file:
+        src: /snap/bin/certbot
+        dest: /usr/bin/certbot
+        state: link

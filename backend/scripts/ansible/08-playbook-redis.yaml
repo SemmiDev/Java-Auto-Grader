@@ -1,0 +1,22 @@
+---
+- name: Install Redis from Snap
+  hosts: server_belajar_ansible
+  become: true
+
+  tasks:
+    - name: Install Snapd
+      snap:
+        name: snapd
+        state: present
+
+    - name: Install Redis
+      snap:
+        name: redis
+        classic: true
+        state: present
+
+    - name: Start Redis
+      service:
+        name: snap.redis.server
+        state: started
+        enabled: true

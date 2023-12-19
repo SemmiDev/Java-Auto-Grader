@@ -1,0 +1,24 @@
+- name: Install OpenJDK 11
+  hosts: server_belajar_ansible
+  become: true
+  become_method: ansible.builtin.sudo
+
+  tasks:
+    - name: Update repository
+      ansible.builtin.apt:
+        update_cache: true
+
+    - name: Install OpenJDK 11
+      ansible.builtin.apt:
+        name: openjdk-11-jdk
+        state: present
+
+    - name: Verify Java installation
+      ansible.builtin.command: java -version
+      register: java_version_output
+      changed_when: false
+      failed_when: false
+
+    - name: Print Java version
+      ansible.builtin.debug:
+        var: java_version_output.stdout_lines

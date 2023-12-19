@@ -1,0 +1,14 @@
+- name: Install Snapd
+  hosts: server_belajar_ansible
+  become: true
+  tasks:
+    - name: Install snapd
+      ansible.builtin.package:
+        name: snapd
+        state: present
+
+    - name: Ensure snapd service is started
+      ansible.builtin.service:
+        name: snapd
+        state: started
+        enabled: true

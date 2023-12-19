@@ -1,0 +1,29 @@
+- name: Setup Nginx
+  hosts: server_belajar_ansible
+  become: true
+  become_method: ansible.builtin.sudo
+  vars:
+    nginx_service_name: nginx
+  tasks:
+    - name: Update repository
+      ansible.builtin.apt:
+        update_cache: true
+
+    - name: Install software-properties-common
+      ansible.builtin.apt:
+        name: software-properties-common
+        state: present
+
+    - name: Install Nginx
+      ansible.builtin.apt:
+        name: '{{ nginx_service_name }}'
+        state: present
+      notify:
+        - Restart Nginx
+
+  # memastikan bahwa layanan Nginx di-restart hanya jika ada perubahan yang mempengaruhi konfigurasi Nginx
+  handlers:
+    - name: Restart Nginx
+      ansible.builtin.service:
+        name: '{{ nginx_service_name }}'
+        state: restarted

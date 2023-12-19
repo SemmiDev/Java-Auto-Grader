@@ -1,0 +1,35 @@
+- name: Run playbooks
+  hosts: server_belajar_ansible
+
+- name: Nginx
+  ansible.builtin.import_playbook: 01-playbook-nginx.yaml
+
+- name: OpenJDK11
+  ansible.builtin.import_playbook: 02-playbook-openjdk11.yaml
+
+- name: Maven
+  ansible.builtin.import_playbook: 03-playbook-maven.yaml
+
+- name: PHP-FPM
+  ansible.builtin.import_playbook: 04-playbook-phpfpm.yaml
+
+- name: Snap
+  ansible.builtin.import_playbook: 05-playbook-snap.yaml
+
+- name: Composer
+  ansible.builtin.import_playbook: 06-playbook-composer.yaml
+
+- name: Certbot
+  ansible.builtin.import_playbook: 07-playbook-certbot.yaml
+
+- name: Redis
+  ansible.builtin.import_playbook: 08-playbook-redis.yaml
+
+- name: Golang
+  ansible.builtin.import_playbook: 09-playbook-golang.yaml
+
+- name: PostgreSQL
+  ansible.builtin.import_playbook: 10-playbook-postgresql.yaml
+
+- name: NodeJS
+  ansible.builtin.import_playbook: 11-playbook-nodejs.yaml

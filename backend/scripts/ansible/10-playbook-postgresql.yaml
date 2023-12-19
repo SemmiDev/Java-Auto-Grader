@@ -1,0 +1,22 @@
+---
+- name: Install PostgreSQL and PostgreSQL-contrib
+  hosts: server_belajar_ansible
+  become: true # Run tasks with elevated privileges
+
+  tasks:
+    - name: Update APT package cache
+      ansible.builtin.apt:
+        update_cache: true
+
+    - name: Install PostgreSQL and PostgreSQL-contrib
+      ansible.builtin.apt:
+        name:
+          - postgresql
+          - postgresql-contrib
+        state: present
+
+    - name: Ensure PostgreSQL service is started and enabled
+      ansible.builtin.service:
+        name: postgresql
+        state: started
+        enabled: true
