@@ -27,16 +27,31 @@ func NewClassUserRepository(database *mongo.Database, classCollectionName, userC
 }
 
 func (c *ClassRepository) Save(ctx context.Context, class *domain.Class) error {
-	existingClass, err := c.GetByID(ctx, class.ID)
-	if err != nil && !errors.Is(err, mongo.ErrNoDocuments) {
+	session, err := c.classCollection.Database().Client().StartSession()
+	if err != nil {
 		return err
 	}
+	defer session.EndSession(ctx)
 
-	if existingClass != nil {
-		return c.updateExistingClass(ctx, existingClass.ID, class)
-	}
+	_, err = session.WithTransaction(ctx, func(sessionContext mongo.SessionContext) (interface{}, error) {
+		existingClass, err := c.GetByID(ctx, class.ID)
+		if err != nil && !errors.Is(err, mongo.ErrNoDocuments) {
+			return nil, err
+		}
 
-	_, err = c.classCollection.InsertOne(ctx, class)
+		if existingClass != nil {
+			return nil, c.updateExistingClass(ctx, existingClass.ID, class)
+		}
+
+		_, err = c.classCollection.InsertOne(ctx, class)
+		if err != nil {
+			return nil, err
+		}
+
+		return nil, nil
+
+	}, nil)
+
 	if err != nil {
 		return err
 	}

@@ -2,11 +2,12 @@ package domain
 
 import (
 	"fmt"
-	"github.com/SemmiDev/auto-grader/internal/helper"
-	"go.mongodb.org/mongo-driver/bson/primitive"
 	"os"
 	"path/filepath"
 	"time"
+
+	"github.com/SemmiDev/auto-grader/internal/helper"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 type SubmissionStatus string
@@ -62,7 +63,6 @@ func (s *Submission) CalculateGrade(totalTestCases int64) {
 	s.Grade = (float64(s.TestCases.Passed) * 100) / float64(totalTestCases)
 }
 
-// TestCase represents the result of a submission's test cases
 type TestCase struct {
 	Passed   int64 `json:"passed" bson:"passed"`
 	Failures int64 `json:"failures" bson:"failures"`
@@ -70,7 +70,6 @@ type TestCase struct {
 	Skipped  int64 `json:"skipped" bson:"skipped"`
 }
 
-// NewTestCase creates a new TestCase with all fields set to 0
 func NewTestCase() TestCase {
 	return TestCase{
 		Passed:   0,
