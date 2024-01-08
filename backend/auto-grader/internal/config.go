@@ -7,13 +7,14 @@ import (
 )
 
 type Config struct {
-	Environment       string        `mapstructure:"ENVIRONMENT"`
-	MongodbURI        string        `mapstructure:"MONGODB_URI"`
-	RedisAddress      string        `mapstructure:"REDIS_ADDRESS"`
-	HTTPServerAddress string        `mapstructure:"HTTP_SERVER_ADDRESS"`
-	TokenDuration     time.Duration `mapstructure:"TOKEN_DURATION"`
-	TokenSymmetricKey string        `mapstructure:"TOKEN_SYMMETRIC_KEY"`
-	StoragePath       string        `mapstructure:"STORAGE_PATH"`
+	Environment         string        `mapstructure:"ENVIRONMENT"`
+	MongodbURI          string        `mapstructure:"MONGODB_URI"`
+	MongodbDatabaseName string        `mapstructure:"MONGODB_DB_NAME"`
+	RedisAddress        string        `mapstructure:"REDIS_ADDRESS"`
+	HTTPServerAddress   string        `mapstructure:"HTTP_SERVER_ADDRESS"`
+	TokenDuration       time.Duration `mapstructure:"TOKEN_DURATION"`
+	TokenSymmetricKey   string        `mapstructure:"TOKEN_SYMMETRIC_KEY"`
+	StoragePath         string        `mapstructure:"STORAGE_PATH"`
 }
 
 func LoadConfig(path string) (*Config, error) {

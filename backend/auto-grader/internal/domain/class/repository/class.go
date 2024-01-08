@@ -26,6 +26,30 @@ func NewClassUserRepository(database *mongo.Database, classCollectionName, userC
 	}
 }
 
+type IClassRepository interface {
+	Save(ctx context.Context, class *domain.Class) error
+	GetByID(ctx context.Context, classID primitive.ObjectID) (*domain.Class, error)
+	GetByCode(ctx context.Context, code string) (*domain.Class, error)
+	GetAllClassesByUser(
+		ctx context.Context,
+		userID primitive.ObjectID,
+	) ([]*domain.Class, error)
+	DeleteByID(ctx context.Context, classID primitive.ObjectID) error
+	GetAssignmentLeaderboard(
+		ctx context.Context,
+		assignmentID primitive.ObjectID,
+	) ([]*model.GetAssignmentLeaderboardReadModel, error)
+	GetGradingSummary(
+		ctx context.Context,
+		assignmentID primitive.ObjectID,
+		students []primitive.ObjectID,
+	) ([]*model.GetGradingSummaryReadModel, error)
+	GetAssignment(
+		ctx context.Context,
+		classID, assignmentID primitive.ObjectID,
+	) (*domain.Assignment, error)
+}
+
 func (c *ClassRepository) Save(ctx context.Context, class *domain.Class) error {
 	session, err := c.classCollection.Database().Client().StartSession()
 	if err != nil {

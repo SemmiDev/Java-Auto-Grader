@@ -1,8 +1,8 @@
 @extends('layouts.guest')
 
 @section('content')
-    <div class="flex justify-center bg-black min-h-screen">
-        <div class="bg-cover w-full" style="background-image: url('/images/login-image.jpg')">
+    <div class="flex justify-center min-h-screen bg-black">
+        <div class="w-full bg-cover" style="background-image: url('/images/login-image.jpg')">
             <div class="flex items-center h-full bg-gray-900 bg-opacity-60">
                 <div class="px-20">
                     <h2 class="text-5xl font-bold text-white">Auto Grader</h2>
@@ -20,7 +20,7 @@
                                 </path>
                             </svg>
 
-                            <span class="hidden mx-2 sm:inline">Sign in with Google</span>
+                            <span class="hidden mx-2 sm:inline">Continue with Google</span>
                         </a>
                     </div>
                 </div>

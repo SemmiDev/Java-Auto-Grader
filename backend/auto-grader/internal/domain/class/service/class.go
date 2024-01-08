@@ -30,6 +30,17 @@ func NewClassService(classRepository *repository.ClassRepository, userRepository
 	return &ClassService{classRepository: classRepository, userRepository: userRepository, config: config}
 }
 
+type IClassService interface {
+	GetAllClassesByUser(ctx context.Context, userID primitive.ObjectID) ([]*model.GetClassesReadModel, error)
+	GetClassByID(ctx context.Context, classID primitive.ObjectID) (*domain.Class, error)
+	GetClassDetailsReadModel(ctx context.Context, classID, userID primitive.ObjectID) (*model.GetClassDetailsReadModel, error)
+	CreateNewClass(ctx context.Context, OwnerID primitive.ObjectID, req *model.CreateNewClassDTO) error
+	DeleteClass(ctx context.Context, classID primitive.ObjectID) error
+	UpdateClassDetails(ctx context.Context, ClassID primitive.ObjectID, req *model.UpdateClassDTO) error
+	AddMember(ctx context.Context, req *model.AddMemberClassDTO) error
+	RemoveMember(ctx context.Context, classID, userID primitive.ObjectID) error
+}
+
 func (c *ClassService) GetAllClassesByUser(ctx context.Context, userID primitive.ObjectID) ([]*model.GetClassesReadModel, error) {
 	classes, err := c.classRepository.GetAllClassesByUser(ctx, userID)
 

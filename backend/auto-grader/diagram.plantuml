@@ -1,0 +1,46 @@
+@startuml
+!theme mars
+!define RECTANGLE class
+
+!define ARROW -[#000000]->
+
+RECTANGLE Browser {
+  + User Interface
+}
+
+RECTANGLE Nginx {
+  + Web Server
+  + Reverse Proxy
+}
+
+RECTANGLE Laravel {
+  + Blade Templates
+  + Controller
+  + Routing
+}
+
+RECTANGLE Go {
+  + API Endpoints
+  + Business Logic
+  + Database Access
+}
+
+RECTANGLE "File System" {
+  + File Storage
+}
+
+RECTANGLE MongoDB {
+  + Data Storage
+}
+
+RECTANGLE "Redis Queue" {
+  + Job Queue
+}
+
+Browser ARROW Nginx
+Nginx ARROW Laravel
+Laravel ARROW Go
+Go ARROW "File System"
+Go ARROW MongoDB
+Go ARROW "Redis Queue"
+@enduml
