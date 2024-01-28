@@ -4,9 +4,10 @@ import (
 	"errors"
 	"time"
 
+	"strings"
+
 	"github.com/SemmiDev/auto-grader/internal/helper"
 	"go.mongodb.org/mongo-driver/bson/primitive"
-	"strings"
 )
 
 type Class struct {
@@ -152,8 +153,12 @@ func (c *Class) ChangeAssignment(assignmentID primitive.ObjectID, assignment *As
 			c.Assignments[i].Title = assignment.Title
 			c.Assignments[i].Description = assignment.Description
 			c.Assignments[i].DueDate = assignment.DueDate
-			c.Assignments[i].TemplateName = assignment.TemplateName
-			c.Assignments[i].TotalTestCases = assignment.TotalTestCases
+
+			if assignment.TemplateName != "" {
+				c.Assignments[i].TemplateName = assignment.TemplateName
+				c.Assignments[i].TotalTestCases = assignment.TotalTestCases
+			}
+
 			c.UpdatedAt = helper.NewTime()
 			return nil
 		}

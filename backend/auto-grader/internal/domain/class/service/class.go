@@ -3,6 +3,8 @@ package service
 import (
 	"context"
 	"errors"
+	"time"
+
 	"github.com/SemmiDev/auto-grader/internal"
 	"github.com/SemmiDev/auto-grader/internal/domain/class/domain"
 	"github.com/SemmiDev/auto-grader/internal/domain/class/model"
@@ -11,7 +13,6 @@ import (
 	"github.com/SemmiDev/auto-grader/internal/helper"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
-	"time"
 )
 
 var (
@@ -94,6 +95,7 @@ func (c *ClassService) GetClassDetailsReadModel(ctx context.Context, classID, us
 		for i, assignment := range class.Assignments {
 			dueDate := assignment.DueDate
 			class.Assignments[i].DueDate = dueDate.In(time.FixedZone("WIB", 7*60*60))
+			class.Assignments[i].SetIsPastDeadline()
 		}
 	}
 

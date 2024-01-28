@@ -7,17 +7,18 @@ import (
 	"context"
 	"encoding/csv"
 	"fmt"
-	"github.com/SemmiDev/auto-grader/internal/domain/class/domain"
-	"github.com/SemmiDev/auto-grader/internal/domain/class/model"
-	"github.com/SemmiDev/auto-grader/internal/helper"
-	"github.com/rs/zerolog/log"
-	"go.mongodb.org/mongo-driver/bson/primitive"
 	"io"
 	"os"
 	"path/filepath"
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/SemmiDev/auto-grader/internal/domain/class/domain"
+	"github.com/SemmiDev/auto-grader/internal/domain/class/model"
+	"github.com/SemmiDev/auto-grader/internal/helper"
+	"github.com/rs/zerolog/log"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 func (c *ClassService) CreateNewAssignment(ctx context.Context, classID, userID primitive.ObjectID, req *model.CreateNewAssignmentDTO) error {
@@ -140,7 +141,7 @@ func (c *ClassService) UpdateAssignment(ctx context.Context, classID, assignment
 		DueDate:     parsedTime,
 	}
 
-	assignmentFileName := fmt.Sprintf("%s_%s.tar", classID, assignmentID)
+	assignmentFileName := fmt.Sprintf("%s_%s.tar", classID.Hex(), assignmentID.Hex())
 
 	if req.Template != nil {
 		file := new(bytes.Buffer)
@@ -268,6 +269,7 @@ func (c *ClassService) GetAssignmentDetails(ctx context.Context, classID, assign
 	}
 
 	assignment.DueDate = assignment.DueDate.In(time.FixedZone("WIB", 7*60*60))
+	assignment.SetIsPastDeadline()
 
 	role, err := class.CheckAndGetRole(userID)
 	if err != nil {

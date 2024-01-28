@@ -30,14 +30,12 @@ class AssignmentController extends Controller
 
             $request->validate([
                 'title' => 'required',
-                'description' => 'required',
                 'deadline' => 'required',
                 'template' => 'required|mimes:zip',
             ], [
                 'template.required' => 'File tidak boleh kosong',
                 'template.mimes' => 'File harus berupa ZIP',
                 'title.required' => 'Judul tidak boleh kosong',
-                'description.required' => 'Deskripsi tidak boleh kosong',
                 'deadline.required' => 'Deadline tidak boleh kosong',
             ]);
 
@@ -388,13 +386,11 @@ class AssignmentController extends Controller
         try {
             $request->validate([
                 'title' => 'required',
-                'description' => 'required',
                 'deadline' => 'required',
                 'template' => 'nullable|mimes:zip',
             ], [
                 'template.mimes' => 'File harus berupa ZIP',
                 'title.required' => 'Judul tidak boleh kosong',
-                'description.required' => 'Deskripsi tidak boleh kosong',
                 'deadline.required' => 'Deadline tidak boleh kosong',
             ]);
 
