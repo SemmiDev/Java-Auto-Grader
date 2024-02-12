@@ -1,0 +1,87 @@
+@startuml
+
+class Assignment {
+    - ID: ID
+    - CreatorID: ID
+    - Title: string
+    - Description: string
+    - TemplateName: string
+    - IsOverDue: bool
+    - TotalTestCases: int64
+    - DueDate: time.Time
+    - CreatedAt: time.Time
+    - UpdatedAt: time.Time
+
+    + SetIsPastDeadline(): void
+    + ChangeTitle(title: string): error
+    + ChangeDescription(description: string): error
+    + ChangeTemplateName(templateName: string): error
+    + ChangeTotalTestCases(totalTestCases: int64): error
+    + ChangeDueDate(dueDate: time.Time): error
+}
+
+
+class Class {
+    - ID: ID
+    - Name: string
+    - Description: string
+    - Code: string
+    - Owner: ID
+    - Teachers: []ID
+    - Students: []ID
+    - Assignments: []*Assignment
+    - CreatedAt: time.Time
+    - UpdatedAt: time.Time
+
+    + ChangeName(name: string): error
+    + ChangeDescription(description: string): void
+    + HasJoinedClass(userID: primitive.ObjectID): bool
+    + AddMember(userID: primitive.ObjectID, role: Role): void
+    + RemoveMember(memberID: primitive.ObjectID): error
+    + AddAssignment(assignment: *Assignment): void
+    + CheckAndGetRole(userID: primitive.ObjectID): (Role, error)
+    + ChangeAssignment(assignmentID: primitive.ObjectID, assignment: *Assignment): error
+    + GetAssignmentDetails(assignmentID: primitive.ObjectID): (*Assignment, error)
+    + DeleteAssignment(assignmentID: primitive.ObjectID): error
+}
+
+class User {
+    - ID: ID
+    - Name: string
+    - Email: string
+    - Picture: string
+    - CreatedAt: time.Time
+    - UpdatedAt: time.Time
+    + generateUserPicture(name: string): string
+}
+
+class Submission {
+    - ID: ID
+    - AssignmentID: ID
+    - StudentID: ID
+    - FilePath: string
+    - TestCases: TestCase
+    - Grade: float64
+    - Comment: string
+    - Status: SubmissionStatus
+    - Logs: string
+    - CreatedAt: time.Time
+    - UpdatedAt: time.Time
+
+    + ChangeStatus(status: SubmissionStatus): void
+    + ChangeTestCases(newTestCase: TestCase): void
+    + CalculateGrade(totalTestCases: int64): void
+    + SaveLogToFileStorage(storagePath: string, logText: string): error
+}
+
+
+Assignment --> Class: Assignments
+Class "1" --> "0..*" Assignment: Has
+Class --> User: Owner
+Class "1" --> "0..*" User: Teachers
+Class "1" --> "0..*" User: Students
+Class --> Submission: Submissions
+Submission --> Assignment: Belongs To
+Submission --> User: Submitted By
+
+@enduml

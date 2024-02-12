@@ -1,0 +1,28 @@
+@startuml
+
+actor User as User
+boundary "Form Bergabung Kelas" as UI
+control "Class Controller" as ClassController
+entity "Class Repository" as ClassDatabase
+database "User Collection" as UserCollection
+
+User -> UI : Mengakses dan mengisi Form Bergabung Kelas
+activate User
+activate UI
+UI -> ClassController : Submit Kode Kelas
+activate ClassController
+ClassController -> ClassDatabase : Check Kode Kelas
+activate ClassDatabase
+ClassDatabase --> ClassController : Kode Kelas Valid
+deactivate ClassDatabase
+ClassController -> UserCollection : Add User to Class
+activate UserCollection
+UserCollection --> ClassController : User Added to Class
+deactivate UserCollection
+ClassController --> UI : Bergabung ke Kelas Berhasil
+deactivate ClassController
+UI --> User : Notifikasi Bergabung ke Kelas Berhasil
+deactivate UI
+deactivate User
+
+@enduml

@@ -1,0 +1,28 @@
+@startuml
+
+actor User as User
+boundary "Form Buat Tugas" as UI
+control "Assignment Controller" as TaskController
+entity "Assignment Repository" as TaskDatabase
+database "Class Collection" as Database
+
+User -> UI : Mengisi Form Buat Tugas
+activate User
+activate UI
+UI -> TaskController : Submit Form
+activate TaskController
+TaskController -> TaskDatabase : Simpan Tugas Baru
+activate TaskDatabase
+TaskDatabase -> Database : Insert Assignment
+activate Database
+Database --> TaskDatabase : Berhasil Dibuat
+deactivate Database
+TaskDatabase --> TaskController : Berhasil Dibuat
+deactivate TaskDatabase
+TaskController --> UI : Tugas Berhasil Dibuat
+deactivate TaskController
+UI --> User : Pesan Tugas Berhasil Dibuat
+deactivate UI
+deactivate User
+
+@enduml

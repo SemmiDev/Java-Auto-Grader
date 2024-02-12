@@ -1,0 +1,36 @@
+@startuml
+
+actor User as User
+boundary "Akun Google" as UI
+control "Google OAuth Server" as OAuth
+control "Auth Controller" as Controller
+entity "User Repository" as Database
+database "User Collection" as Collection
+entity "User Session" as Session
+
+User -> UI : Pilih akun google
+activate User
+activate UI
+UI -> OAuth : Get Token & User Info
+activate OAuth
+OAuth --> UI : User Info
+deactivate OAuth
+UI -> Controller : Send User Info
+deactivate UI
+
+activate Controller
+Controller -> Database : Check & Save Credentials
+activate Database
+Database -> Collection : Save
+activate Collection
+Collection --> Database : User Data
+deactivate Collection
+Database --> Controller : Return User Data
+deactivate Database
+Controller -> Session : Create Session
+deactivate Controller
+activate Session
+Session --> User : Login Successfully
+deactivate Session
+deactivate User
+@enduml

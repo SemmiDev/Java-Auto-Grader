@@ -1,0 +1,32 @@
+@startuml
+
+actor User as User
+boundary "Form Buat Submission" as UI
+control "Submission Controller" as SubmissionController
+entity "Submission Repository" as SubmissionDatabase
+queue "Submission Queue" as SubmissionQueue
+control "Grader Worker" as GraderWorker
+
+User -> UI : Mengisi Form Buat Submission
+activate User
+activate UI
+UI -> SubmissionController : Submit Form
+activate SubmissionController
+SubmissionController -> SubmissionDatabase : Simpan Submission Baru
+activate SubmissionDatabase
+SubmissionDatabase -> SubmissionQueue : Enqueue Submission
+activate SubmissionQueue
+SubmissionQueue -> GraderWorker : Process Submission
+activate GraderWorker
+GraderWorker --> SubmissionQueue : Submission Processed
+deactivate GraderWorker
+deactivate SubmissionQueue
+SubmissionDatabase --> SubmissionController : Submission Berhasil Dibuat
+deactivate SubmissionDatabase
+SubmissionController --> UI : Submission Berhasil Dibuat
+deactivate SubmissionController
+UI --> User : Pesan Submission Berhasil Dibuat
+deactivate UI
+deactivate User
+
+@enduml

@@ -1,0 +1,48 @@
+@startuml
+
+left to right direction
+
+actor "<i>User</i>" as user
+actor "<i>Teacher</i>" as teacher
+actor "<i>Student</i>" as student
+actor "<i>Owner</i>" as owner
+
+package "Auto Grader" {
+  usecase "Bergabung Menggunakan Kode Kelas" as K0
+  usecase "Melihat Riwayat <i>Submission</i>" as S2
+  usecase "Membuat Kelas" as K1
+  usecase "Menghapus Kelas" as K2
+  usecase "Mengedit Kelas" as K3
+  usecase "Menambahkan anggota kelas" as CM1
+  usecase "Mengelola Tugas" as T1
+  usecase "Membuat <i>Submission</i>" as S1
+  usecase "Melihat <i>Leaderboard</i>" as L1
+  usecase "<i>Download</i> Rekap Nilai Tugas" as R1
+}
+
+user <|-- owner
+user <|-- teacher
+user <|-- student
+
+user -- K0
+user -- K1
+owner -- K2
+owner -- K3
+owner -- CM1
+
+owner -- T1
+teacher -- T1
+student -- S1
+
+teacher -- L1
+owner -- L1
+student -- L1
+
+owner -- R1
+teacher -- R1
+
+owner -- S2
+teacher -- S2
+student -- S2
+
+@enduml
